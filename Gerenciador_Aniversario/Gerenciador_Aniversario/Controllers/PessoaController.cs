@@ -31,7 +31,18 @@ namespace Gerenciador_Aniversario.Controllers
         // GET: Pessoa/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            
+            var p = repository.GetById(id);
+
+            Pessoa Pessoa = new Pessoa {
+                PessoaID = p.PessoaID,
+                Nome = p.Nome,
+                Sobrenome = p.Sobrenome,
+                DtAniversario = p.DtAniversario
+            };
+
+
+            return View(Pessoa);
         }
 
         // GET: Pessoa/Create

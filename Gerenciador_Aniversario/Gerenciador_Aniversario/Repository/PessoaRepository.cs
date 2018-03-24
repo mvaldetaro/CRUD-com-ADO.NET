@@ -89,7 +89,7 @@ namespace Gerenciador_Aniversario.Repository
         {
             using (var conn = new SqlConnection(StringConnection))
             {
-                string sql = "Select Id, Nome, Sobrenome, DtAniversario FROM Pessoa WHERE PessoaID=@PessoaID";
+                string sql = "Select PessoaID, Nome, Sobrenome, DtAniversario FROM Pessoa WHERE PessoaID=@PessoaID";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@PessoaID", id);
                 PessoaDomain p = null;
