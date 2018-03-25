@@ -53,13 +53,28 @@ namespace Gerenciador_Aniversario.Controllers
 
         // POST: Pessoa/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Pessoa pessoa)
         {
+            PessoaRepository r = repository;
+            PessoaDomain pd = new PessoaDomain
+            {
+                PessoaID = pessoa.PessoaID,
+                Nome = pessoa.Nome,
+                Sobrenome = pessoa.Sobrenome,
+                DtAniversario = pessoa.DtAniversario
+            };
+
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    r.Save(pd);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View(pessoa);
+                }
             }
             catch
             {
@@ -70,22 +85,44 @@ namespace Gerenciador_Aniversario.Controllers
         // GET: Pessoa/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var p = repository.GetById(id);
+
+            Pessoa Pessoa = new Pessoa
+            {
+                PessoaID = p.PessoaID,
+                Nome = p.Nome,
+                Sobrenome = p.Sobrenome,
+                DtAniversario = p.DtAniversario
+            };
+            return View(Pessoa);
         }
 
         // POST: Pessoa/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Pessoa pessoa)
         {
+            PessoaRepository r = repository;
+            PessoaDomain pd = new PessoaDomain {
+                PessoaID = pessoa.PessoaID,
+                Nome = pessoa.Nome,
+                Sobrenome = pessoa.Sobrenome,
+                DtAniversario = pessoa.DtAniversario
+            };
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    r.Update(pd);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View(pessoa);
+                }
             }
             catch
             {
-                return View();
+                return View(pessoa);
             }
         }
 
@@ -97,7 +134,7 @@ namespace Gerenciador_Aniversario.Controllers
 
         // POST: Pessoa/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(Pessoa pessoa)
         {
             try
             {
