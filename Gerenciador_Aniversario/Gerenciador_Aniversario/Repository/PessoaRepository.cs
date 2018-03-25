@@ -16,9 +16,9 @@ namespace Gerenciador_Aniversario.Repository
         {
             using (var conn = new SqlConnection(StringConnection))
             {
-                string sql = "DELETE Pessoa Where PessoaId=@PessoaId";
+                string sql = "DELETE Pessoa Where PessoaID=@PessoaID";
                 SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@PessoaId", entity.PessoaID);
+                cmd.Parameters.AddWithValue("@PessoaID", entity.PessoaID);
                 try
                 {
                     conn.Open();

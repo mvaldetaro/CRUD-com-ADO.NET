@@ -1,0 +1,48 @@
+﻿@model Gerenciador_Aniversario.Models.Pessoa
+
+@{
+    ViewBag.Title = "Remover Pessoa";
+}
+
+<h2>Remover Pessoa</h2>
+
+<h3>Você está certo que deseja remover esta pessoa?</h3>
+<div>
+    <h4>Pessoa</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sobrenome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sobrenome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DtAniversario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DtAniversario)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Voltar para lista", "Index")
+        </div>
+    }
+</div>
