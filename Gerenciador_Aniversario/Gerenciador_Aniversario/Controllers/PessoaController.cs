@@ -41,6 +41,7 @@ namespace Gerenciador_Aniversario.Controllers
                 DtAniversario = p.DtAniversario
             };
 
+            ViewBag.DiasRestantes = Calculator.DiasRestantesAniversario(Pessoa.DtAniversario);
 
             return View(Pessoa);
         }
@@ -129,23 +130,33 @@ namespace Gerenciador_Aniversario.Controllers
         // GET: Pessoa/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var p = repository.GetById(id);
+            Pessoa Pessoa = new Pessoa
+            {
+                PessoaID = p.PessoaID,
+                Nome = p.Nome,
+                Sobrenome = p.Sobrenome,
+                DtAniversario = p.DtAniversario
+            };
+
+            return View(Pessoa);
         }
 
         // POST: Pessoa/Delete/5
-        [HttpPost]
-        public ActionResult Delete(Pessoa pessoa)
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
         {
-            try
+            PessoaRepository r = repository;
+            /*PessoaDomain pd = new PessoaDomain
             {
-                // TODO: Add delete logic here
+                PessoaID = pessoa.PessoaID,
+                Nome = pessoa.Nome,
+                Sobrenome = pessoa.Sobrenome,
+                DtAniversario = pessoa.DtAniversario
+            };*/
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            r.DeleteById(id);
+            return RedirectToAction("Index");
         }
     }
 }
