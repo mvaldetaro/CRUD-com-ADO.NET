@@ -7,8 +7,6 @@ namespace Gerenciador_Aniversario.Repository
 {
     public abstract class AbstractRepository<TEntity, Tkey> where TEntity : class
     {
-        string StringConnection;
-
         public abstract List<TEntity> GetAll();
         public abstract TEntity GetById(Tkey id);
         public abstract void Save(TEntity entity);
