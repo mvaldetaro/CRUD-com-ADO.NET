@@ -28,6 +28,36 @@ namespace Gerenciador_Aniversario.Controllers
             ));
         }
 
+        // POST: Pessoa
+        [HttpPost]
+        public ActionResult Index(FormCollection collection)
+        {
+
+            ViewBag.Query = collection["query"];
+
+            var Pessoas = repository.GetAll();
+            List<PessoaDomain> PessoasFilter = new List<PessoaDomain>();
+
+            var Result = from ObjPessoa in Pessoas where ObjPessoa.Nome.Contains(ViewBag.Query) orderby ObjPessoa.Nome select ObjPessoa;
+
+            foreach (PessoaDomain pessoa in Result)
+            {
+                PessoasFilter.Add(pessoa);
+            }
+
+            //ViewBag.Pessoas = PessoasFilter;
+
+            return View(
+                PessoasFilter.Select(a => new Pessoa
+                {
+                    PessoaID = a.PessoaID,
+                    Nome = a.Nome,
+                    Sobrenome = a.Sobrenome,
+                    DtAniversario = a.DtAniversario
+                }
+            ));
+        }
+
         // GET: Pessoa/Details/5
         public ActionResult Details(int id)
         {
